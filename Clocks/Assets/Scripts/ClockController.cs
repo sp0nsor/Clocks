@@ -10,6 +10,8 @@ public class ClockController : MonoBehaviour
         clockView = GetComponent<ClockView>();
         clockModel = new ClockModel(new TimeService()); // не совсем корректно конечно 
 
+        clockView.OnTimeChange += ChangeTime;
+
         InitializeClock();
     }
 
@@ -18,8 +20,14 @@ public class ClockController : MonoBehaviour
         await clockModel.SysncTimeWithNetwork();
         clockView.UpdateClockDisplay(clockModel.CurrentTime);
 
-        InvokeRepeating(nameof(Tick), 1f, 1f);
+        //InvokeRepeating(nameof(Tick), 1f, 1f);
         InvokeRepeating(nameof(SyncClock), 3600f, 3600f);
+    }
+
+    private void ChangeTime(int hour, int minute)
+    {
+        clockModel.ChangeTime(hour, minute);
+        clockView.UpdateClockDisplay(clockModel.CurrentTime);
     }
 
     private void Tick()
@@ -32,5 +40,10 @@ public class ClockController : MonoBehaviour
     {
         await clockModel.SysncTimeWithNetwork();
         clockView.UpdateClockDisplay(clockModel.CurrentTime);
+    }
+
+    private void OnDestroy()
+    {
+        clockView.OnTimeChange -= ChangeTime;
     }
 }

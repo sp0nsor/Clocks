@@ -21,4 +21,9 @@ public class ClockModel
     {
         CurrentTime = await timeService.GetNetworkTime();
     }
+
+    public void ChangeTime(int hour , int minute)
+    {
+        CurrentTime = new DateTime(CurrentTime.Year, CurrentTime.Month, CurrentTime.Day, hour, minute, CurrentTime.Second);
+    }
 }

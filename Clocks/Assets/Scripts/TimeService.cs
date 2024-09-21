@@ -20,7 +20,6 @@ public class TimeService : ITimeService
                     long unixTimeMillis = JsonUtility.FromJson<TimeData>(json).time;
                     DateTime dateTime = DateTimeOffset.FromUnixTimeMilliseconds(unixTimeMillis).DateTime;
 
-                    Debug.Log(dateTime.ToString());
                     return dateTime;
                 }
                 else
