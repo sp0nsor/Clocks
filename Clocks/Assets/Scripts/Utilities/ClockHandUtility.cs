@@ -15,7 +15,6 @@ public class ClockHandUtility : MonoBehaviour, IClockHandUtility
 
     public float GetAngle(Transform arrow)
     {
-        Debug.Log(arrow.localRotation.eulerAngles.z);
         return arrow.localRotation.eulerAngles.z;
     }
 
